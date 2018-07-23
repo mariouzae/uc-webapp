@@ -1,0 +1,67 @@
+  .input-group {
+      /* border: 1px solid;
+    border-radius: 4px;
+    font-size: 25px;
+    font-family: 'Open Sans', sans-serif;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px; */
+      border-radius: 4px;
+      font-size: 25px;
+      font-family: 'Open Sans', sans-serif;
+      width: 100%;
+      margin-top: 10px !important;
+      margin: 0 auto;
+  }
+
+  .form-control {
+      font-size: 25px;
+      font-family: 'Open Sans', sans-serif;
+      padding: 24px;
+  }
+
+  /* // Medium devices (tablets, 768px and up) */
+
+  @media (min-width: 768px) {
+      /* .input-group {
+        border: 1px solid;
+        border-radius: 4px;
+        font-size: 25px;
+        font-family: 'Open Sans', sans-serif;
+        width: 271px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding: 10px;
+        margin: 0 auto;
+    } */
+      .input-group {
+          border-radius: 4px;
+          font-size: 25px;
+          font-family: 'Open Sans', sans-serif;
+          width: 301px;
+          margin-top: 10px !important;
+          margin-bottom: 10px;
+          margin: 0 auto;
+      }
+  }
+
+  /* // Large devices (desktops, 992px and up) */
+
+  @media (min-width: 992px) {
+
+  }
+
+  /* // Extra large devices (large desktops, 1200px and up) */
+
+  @media (min-width: 1200px) {
+    .input-group {
+        border-radius: 4px;
+        font-size: 25px;
+        font-family: 'Open Sans', sans-serif;
+        width: 417px;
+        margin-top: 10px !important;
+        margin-bottom: 10px;
+        margin: 0 auto;
+    }
+  }

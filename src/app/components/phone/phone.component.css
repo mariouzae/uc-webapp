@@ -1,0 +1,21 @@
+.base {
+    color: #13ce66;
+    font-size: 2.5em;
+    font-family: 'Open Sans', sans-serif;
+    margin: 0 auto;
+}
+
+/* a {
+    text-decoration: none !important;
+    color: #13ce66
+} */
+
+.sub-letters {
+    color: gray;
+    font-size: 0.3em;
+}
+
+.col-centered {
+    float: none;
+    margin: 0 auto;
+  }

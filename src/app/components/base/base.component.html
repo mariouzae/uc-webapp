@@ -1,0 +1,22 @@
+<div id="exTab1" class="container">
+  <ul class="nav nav-tabs nav-justified">
+    <li role="presentation" class="active">
+      <a href="#1tab" data-toggle="tab">
+        <span class="glyphicon glyphicon-th-list"></span>
+      </a>
+    </li>
+    <li role="presentation">
+      <a href="#2tab" data-toggle="tab">
+        <span class="glyphicon glyphicon-earphone"></span>
+      </a>
+    </li>
+  </ul>
+  <div class="tab-content clearfix">
+    <div id="1tab" class="tab-pane active">
+    </div>
+    <div id="2tab" class="tab-pane">
+      <app-search-contacts [wholeNumber]="wholeNumber"></app-search-contacts>
+      <app-phone (numberCall)="numCall($event)"></app-phone>
+    </div>
+  </div>
+</div>
