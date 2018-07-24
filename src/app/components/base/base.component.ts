@@ -49,17 +49,29 @@ export class BaseComponent {
   ]
   public state = 'active';
   wholeNumber = '';
+  searchNumber = '';
+  finalNumber = '';
 
   toggleState() {
     console.log(this.state);
     this.state = this.state === 'active' ? 'inactive' : 'active';
   }
 
-  numCall(numCallValue: string)
+  // Event emited by phone-component
+  phoneCall(value: string)
   {
-    this.wholeNumber = '';
-    this.wholeNumber += numCallValue;
-    
+    this.searchNumber += value;
+    this.finalNumber = this.searchNumber;
+    console.log("Event received from phone box...");
+    console.log("P:" + value);
+  }
+
+  searchCall(value: string)
+  {
+    this.searchNumber = value;
+    this.finalNumber = this.searchNumber;
+    console.log("Event received from search box...");
+    console.log("S: " + value);
   }
 
 }

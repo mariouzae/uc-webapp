@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 //import { trigger, state, style, animate, transition, query } from '@angular/animations';
 @Component({
   selector: 'app-phone',
@@ -22,7 +22,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class PhoneComponent implements OnInit {
 
   @Output() numberCall = new EventEmitter<string>();
-
+  @Input() searchNumber : string;
   constructor() { }
 
   number: string
@@ -31,8 +31,7 @@ export class PhoneComponent implements OnInit {
 
   // public state = 'open';
   toggleState(value: string) {
-    this.numberCall.emit(value); 
-    console.log(value);
+    this.numberCall.emit(value);
   }
 
 }

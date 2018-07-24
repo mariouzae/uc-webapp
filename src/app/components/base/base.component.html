@@ -15,8 +15,8 @@
     <div id="1tab" class="tab-pane active">
     </div>
     <div id="2tab" class="tab-pane">
-      <app-search-contacts [wholeNumber]="wholeNumber"></app-search-contacts>
-      <app-phone (numberCall)="numCall($event)"></app-phone>
+      <app-search-contacts (searchNumber)="searchCall($event)" [finalNumber]="finalNumber"></app-search-contacts>
+      <app-phone (numberCall)="phoneCall($event)" [searchNumber]="searchNumber"></app-phone>
     </div>
   </div>
 </div>

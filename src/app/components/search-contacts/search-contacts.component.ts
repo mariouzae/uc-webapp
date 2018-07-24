@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, Input } from '@angular/core';
+import { Component, ViewChild, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { FormsModule } from '@angular/forms'; 
 import { PhoneComponent } from '../phone/phone.component';
@@ -12,14 +12,17 @@ import { PhoneComponent } from '../phone/phone.component';
 export class SearchContactsComponent implements OnInit {
 
   @Input() wholeNumber: string;
+  @Input() finalNumber: string;
+  @Output() searchNumber = new EventEmitter<string>();
   ngOnInit() { }
   constructor() {
     
   }
 
-  newNumber(number: string)
+  digteNumber(value : any)
   {
-    this.wholeNumber += number;
+    this.searchNumber.emit(value); 
+    //this.wholeNumber += value;
   }
 
 }

@@ -1,7 +1,7 @@
 <div class="form-group">
     <div class="input-group ">
         <div class="col-sm-5">
-            <input type="text" class="form-group" (keyup)="newNumber($event.target.innerText)" [(ngModel)]="wholeNumber">
+            <input type="text" class="form-group" #fieldName (input)="digteNumber(fieldName.value)" [ngModel]="finalNumber">
         </div>
     </div>
 </div>
