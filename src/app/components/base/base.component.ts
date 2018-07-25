@@ -62,23 +62,12 @@ export class BaseComponent {
   {
     this.searchNumber += value;
     this.finalNumber = this.searchNumber;
-    console.log("Event received from phone box...");
-    console.log("P:" + value);
   }
 
   searchCall(value: string)
   {
     this.searchNumber = value;
     this.finalNumber = this.searchNumber;
-    console.log("Event received from search box...");
-    console.log("S: " + value);
   }
 
 }
-
-
-/*
-Copyright 2017-2018 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/

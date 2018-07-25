@@ -8,6 +8,7 @@ import { SearchContactsComponent } from './components/search-contacts/search-con
 import { ReactiveFormsModule } from '@angular/forms'; 
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { FormsModule } from '@angular/forms';
     HttpModule,
     FormsModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

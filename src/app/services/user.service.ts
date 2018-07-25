@@ -1,17 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { map, debounceTime } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UserService {
 
-    url: string
-    constructor(private http: Http) {
-        this.url = 'https://api.datamuse.com/words?ml='
-    }
+  constructor(private _http: Http) { }
+  
+  baseUrl: string = 'https://jsonplaceholder.typicode.com/users?username=';
+  results: any[] = [];
 
-    search_word(term) {
-        return this.http.get(this.url + term)
-            .pipe(map(res => { return res.json() }));
-    }
+  search(queryString: string) {
+    let _URL = this.baseUrl + queryString;
+    return this._http.get(_URL);
+  }
 }

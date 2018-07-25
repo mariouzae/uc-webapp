@@ -35,7 +35,7 @@
         padding: 10px;
         margin: 0 auto;
     } */
-      .input-group {
+      /* .input-group {
           border-radius: 4px;
           font-size: 25px;
           font-family: 'Open Sans', sans-serif;
@@ -43,7 +43,16 @@
           margin-top: 10px !important;
           margin-bottom: 10px;
           margin: 0 auto;
-      }
+      } */
+      .input-group {
+        border-radius: 4px;
+        font-size: 25px;
+        font-family: 'Open Sans', sans-serif;
+        width: 301px;
+        margin-top: 10px !important;
+        margin-bottom: 10px;
+        margin: 0 auto;
+    }
   }
 
   /* // Large devices (desktops, 992px and up) */
@@ -65,3 +74,49 @@
         margin: 0 auto;
     }
   }
+
+.filter-select {
+  /* width: 50%; */
+  /* margin-top: 40px; */
+  /* list-style: none;
+  font-size: 0.9em;
+  color: rgb(105, 105, 105);
+  width: 100%; */
+  /* border: 1px solid #ccc; */
+  /* border-top: none; */
+  /*so things don't jump around*/
+  /* position: absolute;
+  left: 25%;
+  top: calc(50% + 25px);
+  max-height: calc(50% - 15px);
+  overflow-y: auto; */
+  /* background: #fff */
+  list-style-type: none;
+  padding: 0;
+}
+.filter {
+    margin: -30px 220px !important;
+    margin: 0 auto;
+    z-index: 99;
+}
+.filter-select-list:hover .tags {
+  color: #fff;
+}
+.filter-select-list {
+  cursor: pointer;
+  border: 1px solid #ddd;
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #f6f6f6;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+  display: block
+}
+.artist-name {
+  display: inline-block;
+}
+.filter-select-list:hover {
+  background:  #C0C0C0;
+  color: #fff
+}
