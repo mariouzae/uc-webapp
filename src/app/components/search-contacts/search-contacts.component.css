@@ -5,7 +5,10 @@
       width: 100%;
       margin-top: 10px !important;
       margin: 0 auto;
+      border-radius: 5px;
   }
+
+  
 
   .form-control {
       font-size: 25px;
@@ -33,6 +36,9 @@
         margin-bottom: 10px;
         margin: 0 auto;
     }
+    .ipt {
+      border-radius: 4px;
+    }
     .filter-select {
       position: fixed;
       list-style-type: none;
@@ -58,7 +64,6 @@
         margin: 0 auto;
     }
   }
-
 
 .filter {
     margin: -30px 220px !important;
