@@ -1,7 +1,7 @@
 <div class="form-group">
     <div class="input-group ">
         <div class="col-sm-5">
-            <input type="text" class="form-group" #fieldName (input)="digteNumber(fieldName.value)" [ngModel]="finalNumber" [formControl]="finaNumber">
+            <input type="text" class="form-group" #fieldName (input)="digteNumber(fieldName.value)" [ngModel]="finalNumber" [formControl]="finaNumber" >
         </div>
         
     </div>
@@ -11,7 +11,7 @@
         <div class="col-sm-12">
             <ul class="filter-select">
                 <li *ngFor="let result of results" class="filter-select-list">
-                    <img src="{{result.photo}}" alt="" width="50" height="50">
+                    <img src="#" alt="" width="50" height="50">
                     <span>{{result.name}}</span>
                 </li>
             </ul>

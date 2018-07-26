@@ -10,7 +10,8 @@ export class UserService {
 
   constructor(private _http: Http) { }
   
-  baseUrl: string = 'https://jsonplaceholder.typicode.com/users?username=';
+  //baseUrl: string = 'https://jsonplaceholder.typicode.com/users?username=';
+  baseUrl: string = 'https://jsonplaceholder.typicode.com/users?name=';
   results: any[] = [];
 
   search(queryString: string) {

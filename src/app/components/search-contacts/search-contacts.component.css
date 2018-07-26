@@ -1,12 +1,4 @@
   .input-group {
-      /* border: 1px solid;
-    border-radius: 4px;
-    font-size: 25px;
-    font-family: 'Open Sans', sans-serif;
-    width: 100%;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding: 10px; */
       border-radius: 4px;
       font-size: 25px;
       font-family: 'Open Sans', sans-serif;
@@ -21,29 +13,17 @@
       padding: 24px;
   }
 
-  /* // Medium devices (tablets, 768px and up) */
+  .filter-select {
+    position: fixed;
+    list-style-type: none;
+    padding: 0;
+    z-index: 99;
+    width: 280px;
+    margin: 0 auto;
+  }
 
+  /* // Medium devices (tablets, 768px and up) */
   @media (min-width: 768px) {
-      /* .input-group {
-        border: 1px solid;
-        border-radius: 4px;
-        font-size: 25px;
-        font-family: 'Open Sans', sans-serif;
-        width: 271px;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        padding: 10px;
-        margin: 0 auto;
-    } */
-      /* .input-group {
-          border-radius: 4px;
-          font-size: 25px;
-          font-family: 'Open Sans', sans-serif;
-          width: 301px;
-          margin-top: 10px !important;
-          margin-bottom: 10px;
-          margin: 0 auto;
-      } */
       .input-group {
         border-radius: 4px;
         font-size: 25px;
@@ -53,13 +33,17 @@
         margin-bottom: 10px;
         margin: 0 auto;
     }
+    .filter-select {
+      position: fixed;
+      list-style-type: none;
+      padding: 0;
+      z-index: 99;
+      width: 280px;
+    }
   }
 
   /* // Large devices (desktops, 992px and up) */
-
-  @media (min-width: 992px) {
-
-  }
+  @media (min-width: 992px) {}
 
   /* // Extra large devices (large desktops, 1200px and up) */
 
@@ -75,25 +59,7 @@
     }
   }
 
-.filter-select {
-  /* width: 50%; */
-  /* margin-top: 40px; */
-  /* list-style: none;
-  font-size: 0.9em;
-  color: rgb(105, 105, 105);
-  width: 100%; */
-  /* border: 1px solid #ccc; */
-  /* border-top: none; */
-  /*so things don't jump around*/
-  /* position: absolute;
-  left: 25%;
-  top: calc(50% + 25px);
-  max-height: calc(50% - 15px);
-  overflow-y: auto; */
-  /* background: #fff */
-  list-style-type: none;
-  padding: 0;
-}
+
 .filter {
     margin: -30px 220px !important;
     margin: 0 auto;
