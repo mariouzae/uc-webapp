@@ -9,13 +9,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { UserService } from './services/user.service';
+import { CallComponent } from './components/phone/call/call.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PhoneComponent,
     BaseComponent,
-    SearchContactsComponent
+    SearchContactsComponent,
+    CallComponent,
   ],
   imports: [
     BrowserModule,

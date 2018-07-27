@@ -51,6 +51,7 @@ export class BaseComponent {
   wholeNumber = '';
   searchNumber = '';
   finalNumber = '';
+  callNumber : Boolean;
 
   toggleState() {
     console.log(this.state);
@@ -68,6 +69,12 @@ export class BaseComponent {
   {
     this.searchNumber = value;
     this.finalNumber = this.searchNumber;
+  }
+
+  callNumberBtn(value: Boolean)
+  {
+    this.callNumber = value;
+    console.log("callNumber on base");
   }
 
 }
