@@ -3,6 +3,7 @@ import { UserService } from '../../services/user.service';
 import { FormsModule, FormControl } from '@angular/forms';
 import { PhoneComponent } from '../phone/phone.component';
 import { map, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Router } from '../../../../node_modules/@angular/router';
 
 @Component({
   selector: 'app-search-contacts',
@@ -17,6 +18,7 @@ export class SearchContactsComponent implements OnInit {
   @Output() searchNumber = new EventEmitter<string>();
   results: any[] = [];
   finaNumber: FormControl = new FormControl();
+  name = 'mario';
 
   constructor(private _userService: UserService) { }
 
@@ -33,5 +35,7 @@ export class SearchContactsComponent implements OnInit {
   digteNumber(value: any) {
     this.searchNumber.emit(value);
   }
+
+  
 
 }

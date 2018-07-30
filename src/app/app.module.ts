@@ -9,20 +9,30 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { UserService } from './services/user.service';
+import { CallComponent } from './pages/call/call.component';
+import { Routes, Route, RouterModule } from '@angular/router';
+
+const appRoutes: Routes = [
+  { path: '', component: BaseComponent },
+  { path: 'call/:name', component: CallComponent }
+];
+
 
 @NgModule({
   declarations: [
     AppComponent,
     PhoneComponent,
     BaseComponent,
-    SearchContactsComponent
+    SearchContactsComponent,
+    CallComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

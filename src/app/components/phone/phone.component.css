@@ -15,6 +15,10 @@
     font-size: 0.3em;
 }
 
+.record:hover {
+    background-color: #13ce66;
+}
+
 .col-centered {
     float: none;
     margin: 0 auto;
