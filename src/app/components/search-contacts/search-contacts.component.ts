@@ -16,6 +16,7 @@ export class SearchContactsComponent implements OnInit {
   @Input() wholeNumber: string;
   @Input() finalNumber: string;
   @Output() searchNumber = new EventEmitter<string>();
+  @Output() callNumber = new EventEmitter<Boolean>();
   results: any[] = [];
   finaNumber: FormControl = new FormControl();
   name = 'mario';
@@ -35,7 +36,5 @@ export class SearchContactsComponent implements OnInit {
   digteNumber(value: any) {
     this.searchNumber.emit(value);
   }
-
-  
 
 }

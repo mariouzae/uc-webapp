@@ -17,7 +17,6 @@ const appRoutes: Routes = [
   { path: 'call/:name', component: CallComponent }
 ];
 
-
 @NgModule({
   declarations: [
     AppComponent,
