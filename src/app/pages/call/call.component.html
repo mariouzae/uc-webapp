@@ -1,8 +1,7 @@
 <div class="container-fluid">
   <div class="row base">
     <div class="title">
-      <div class="col-xs-2 col-sm-2 col-md-2 text-left backbutton" (click)="goBack()">
-        < </div>
+      <div class="col-xs-2 col-sm-2 col-md-2 text-left backbutton" (click)="goBack()"><</div>
           <div class="col-xs-10 col-sm-10 col-md-10 text-right number">
             +55 9968919542
           </div>
@@ -27,6 +26,8 @@
           <img src="assets/hangup.png" (click)="goBack()">
         </div>
       </div>
+      <video autoplay id="remoteVideo"></video>
+      <video autoplay id="localVideo" muted="muted"></video>
     </div>
 
   </div>

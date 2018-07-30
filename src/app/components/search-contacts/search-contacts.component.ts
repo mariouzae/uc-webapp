@@ -19,9 +19,9 @@ export class SearchContactsComponent implements OnInit {
   @Output() callNumber = new EventEmitter<Boolean>();
   results: any[] = [];
   finaNumber: FormControl = new FormControl();
-  name = 'mario';
+  name = '';
 
-  constructor(private _userService: UserService) { }
+  constructor(private _userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.finaNumber.valueChanges.pipe(
@@ -29,12 +29,16 @@ export class SearchContactsComponent implements OnInit {
       distinctUntilChanged(),
       switchMap((query) => this._userService.search(query)))
       .subscribe(result => {
-        if (result.status === 400) { return; } else { this.results = result.json(); }
+        if (result.status === 400) { return; } else { this.results = result; }
       });
   }
 
   digteNumber(value: any) {
     this.searchNumber.emit(value);
+  }
+
+  call(value: string) {
+    this.router.navigate(['/call/'+ value]);
   }
 
 }

@@ -10,7 +10,7 @@
     <div class="filter">
         <div class="col-sm-12">
             <ul class="filter-select">
-                <li *ngFor="let result of results" class="filter-select-list" [routerLink]="['/call', name]">
+                <li *ngFor="let result of results" class="filter-select-list" (click)="call(result.name)">
                     <img src="#" alt="" width="50" height="50">
                     <span>{{result.name}}</span>
                 </li>

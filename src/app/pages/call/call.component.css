@@ -22,7 +22,7 @@
 
 .number {
     font-size: 22px;
-    margin-top: -17px;
+    margin-top: -19px;
     margin-left: 30px;
 }
 
@@ -42,6 +42,6 @@
 
 .end-button img {
     margin-top: 60px;
-    height: 70px;
+    height: 52px;
     cursor: pointer
 }
