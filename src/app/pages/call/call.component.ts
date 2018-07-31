@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import * as SIP from 'sip.js';
+import * as SIP from 'sip.js/dist/sip';
 
 @Component({
   selector: 'app-call',
@@ -18,22 +18,24 @@ export class CallComponent implements OnInit {
     };
 
     var userAgent = new SIP.UA({
-      uri: '1060@18.212.213.193',
-      wsServers: 'wss://18.212.213.193:8089/ws',
-      authorizationUser: '1060',
-      password: 'password',
-      register: false,
-      registrarServer: '18.212.213.193:8089'
+      uri: '199@18.211.195.231',
+      transportOptions: {
+        wsServers: 'wss://18.211.195.231:8089/ws',
+      },
+      authorizationUser: '199',
+      password: '199',
+      register: true,
+      registrarServer: '18.211.195.231:8089'
     });
 
-    // var session = userAgent.invite('1061@18.212.213.193', {
-    //   sessionDescriptionHandlerOptions: {
-    //     constraints: {
-    //       audio: true,
-    //       video: false
-    //     }
-    //   }
-    // });
+    var session = userAgent.invite('200@18.212.213.193', {
+      sessionDescriptionHandlerOptions: {
+        constraints: {
+          audio: true,
+          video: false
+        }
+      }
+    });
 
   }
 
