@@ -15,6 +15,7 @@ export class CallComponent implements OnInit {
   user: { name: string };
   imgUrl: string;
   videoUrl: string;
+  durationTime: string;
 
   constructor(private router: ActivatedRoute, private route: Router) { }
 
@@ -42,34 +43,36 @@ export class CallComponent implements OnInit {
       }
     });
 
-    // var session = userAgent.invite('200@18.212.213.193', {
-    //   sessionDescriptionHandlerOptions: {
-    //     constraints: {
-    //       audio: true,
-    //       video: false
-    //     }
-    //   }
-    // });
+    var session = userAgent.invite('200@18.212.213.193', {
+      sessionDescriptionHandlerOptions: {
+        constraints: {
+          audio: true,
+          video: false
+        }
+      }
+    });
 
-    // session.on('trackAdded', () => {
-    //   var pc = session.sessionDescriptionHandler.peerConnection;
+    session.on('trackAdded', () => {
+      var pc = session.sessionDescriptionHandler.peerConnection;
+      this.getSessionDurationTime();
+      // Gets remote tracks
+      var remoteStream = new MediaStream();
+      pc.getReceivers().forEach(function(receiver) {
+        remoteStream.addTrack(receiver.track);
+      });
+      this.remoteVideo.nativeElement.srcObject = remoteStream;
       
-    //   // Gets remote tracks
-    //   var remoteStream = new MediaStream();
-    //   pc.getReceivers().forEach(function(receiver) {
-    //     remoteStream.addTrack(receiver.track);
-    //   });
-    //   this.remoteVideo.nativeElement.srcObject = remoteStream;
-
-    //   // Gets local tracks
-    //   var localStream = new MediaStream();
-    //   pc.getSenders().forEach(function(sender) {
-    //     localStream.addTrack(sender.track);
-    //   });
-    //   this.localVideo.nativeElement.srcObject = localStream;
-    // });
-
-   
+      // Gets local tracks
+      var localStream = new MediaStream();
+      pc.getSenders().forEach(function(sender) {
+        localStream.addTrack(sender.track);
+      });
+      this.localVideo.nativeElement.srcObject = localStream;
+      console.log(localStream.getAudioTracks()[0]);
+      var t = localStream.getAudioTracks()[0].stop();
+      //console.log("Muted" + t.enabled);
+      //localStream.getAudioTracks()[0].enabled = false;
+    });
 
   }
 
@@ -79,12 +82,54 @@ export class CallComponent implements OnInit {
 
   mute()
   {
-    this.imgUrl == "assets/microphone.png" ? this.imgUrl = "assets/cut-microphone.png" : this.imgUrl = "assets/microphone.png";
+    if(this.imgUrl == "assets/microphone.png") {
+      this.imgUrl = "assets/cut-microphone.png";
+      //console.log(this.remoteVideo.nativeElement.getVideoTracks);
+     } else {
+      this.imgUrl = "assets/microphone.png";
+     } 
   }
 
   video()
   {
     this.videoUrl == "assets/video.png" ? this.videoUrl = "assets/cut-video.png" : this.videoUrl = "assets/video.png";
+  }
+
+  getSessionDurationTime()
+  {
+    var start = new Date().getTime(); 
+    setInterval(() => {
+      // Get todays date and time
+      var now = new Date().getTime();
+      var duration = now - start;
+
+      var hours = Math.floor((duration % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((duration % (1000 * 60)) / 1000);
+
+      var second = "";
+      if (seconds < 10) {
+        second = "0" + seconds;
+      } else {
+        second = seconds.toString();
+      }
+
+      var minute = "";
+      if (minutes < 10) {
+        minute = "0" + minutes;
+      } else {
+        minute = minutes.toString();
+      }
+
+      var hour = "";
+      if (hours < 10) {
+        hour = "0" + hours;
+      } else {
+        hour = hours.toString();
+      }
+
+      this.durationTime = hour + ":" + minute + ":" + second;
+    }, 1000);
   }
 
 }
