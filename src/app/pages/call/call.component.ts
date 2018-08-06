@@ -68,10 +68,12 @@ export class CallComponent implements OnInit {
         localStream.addTrack(sender.track);
       });
       this.localVideo.nativeElement.srcObject = localStream;
-      console.log(localStream.getAudioTracks()[0]);
-      var t = localStream.getAudioTracks()[0].stop();
-      //console.log("Muted" + t.enabled);
-      //localStream.getAudioTracks()[0].enabled = false;
+    });
+
+    session.on('bye', () => {
+      setTimeout(() => {
+        //this.route.navigate([''])
+      }, 2000);
     });
 
   }
@@ -84,9 +86,10 @@ export class CallComponent implements OnInit {
   {
     if(this.imgUrl == "assets/microphone.png") {
       this.imgUrl = "assets/cut-microphone.png";
-      //console.log(this.remoteVideo.nativeElement.getVideoTracks);
+      this.remoteVideo.nativeElement.muted = true;
      } else {
       this.imgUrl = "assets/microphone.png";
+      this.remoteVideo.nativeElement.muted = false;
      } 
   }
 
