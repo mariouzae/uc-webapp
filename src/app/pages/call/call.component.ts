@@ -1,11 +1,16 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { UserService } from '../../services/user.service';
+import { map, filter } from 'rxjs/operators';
+import { User } from '../../models/user.model';
 import * as SIP from 'sip.js/dist/sip';
+import { SipService } from '../../services/sip.service';
 
 @Component({
   selector: 'app-call',
   templateUrl: './call.component.html',
-  styleUrls: ['./call.component.css']
+  styleUrls: ['./call.component.css'],
+  providers: [UserService]
 })
 export class CallComponent implements OnInit {
   
@@ -13,37 +18,65 @@ export class CallComponent implements OnInit {
   @ViewChild('localVideo') localVideo: ElementRef;
   @ViewChild('remoteAudio') remoteAudio: ElementRef;
   user: { name: string };
+  userToCall: object;
   imgUrl: string;
+  userPhoto: string;
+  sipNumber: string
+  userName: string;
   videoUrl: string;
   durationTime: string;
+  userAgent;
 
-  constructor(private router: ActivatedRoute, private route: Router) { }
+  constructor(private router: ActivatedRoute, private route: Router,
+    private _userService: UserService, private _sipService: SipService) { }
 
   ngOnInit() {
     this.user = {
       name: this.router.snapshot.params['name']
     };
 
+    var member;
+
+    if (this.user.name.length <= 0) this.goBack();
+
+    this._userService.search(this.user.name)
+    .subscribe((result: any) => {
+      const resp : User[] =  result;
+      this.userToCall = resp.filter(item => item.name === this.user.name);
+      if(this.userToCall != null)
+      {
+        this.userName = this.userToCall[0].name;
+        this.userPhoto = this.userToCall[0].photo;
+        this.sipNumber = this.userToCall[0].sip;
+        this.userAgent = this._sipService.register(this.userToCall[0]);
+        this.call(this.userToCall[0]);
+      }
+    })
+
+  }
+
+  call(user: any) {
     this.imgUrl = "assets/microphone.png";
     this.videoUrl = "assets/video.png";
+    //var session;
 
-    var userAgent = new SIP.UA({
-      uri: '199@18.211.195.231',
-      transportOptions: {
-        wsServers: 'wss://18.211.195.231:8089/ws',
-      },
-      authorizationUser: '199',
-      password: '199',
-      register: false,
-      registrarServer: 'sip:18.211.195.231',
-      turnServers: {
-        urls:"turn:numb.viagenie.ca",
-        username:"mariouzae@gmail.com",
-        password:"dasilva"
-      }
-    });
+    // var userAgent = new SIP.UA({
+    //   uri: '199@18.211.195.231',
+    //   transportOptions: {
+    //     wsServers: 'wss://18.211.195.231:8089/ws',
+    //   },
+    //   authorizationUser: '199',
+    //   password: '199',
+    //   register: false,
+    //   registrarServer: 'sip:18.211.195.231'
+    //   // turnServers: {
+    //   //   urls:"turn:numb.viagenie.ca",
+    //   //   username:"mariouzae@gmail.com",
+    //   //   password:"dasilva"
+    //   // }
+    // });
 
-    var session = userAgent.invite('200@18.212.213.193', {
+    var session = this.userAgent.invite('200@18.212.213.193', {
       sessionDescriptionHandlerOptions: {
         constraints: {
           audio: true,
@@ -51,7 +84,7 @@ export class CallComponent implements OnInit {
         }
       }
     });
-
+    
     session.on('trackAdded', () => {
       var pc = session.sessionDescriptionHandler.peerConnection;
       this.getSessionDurationTime();
@@ -72,10 +105,9 @@ export class CallComponent implements OnInit {
 
     session.on('bye', () => {
       setTimeout(() => {
-        //this.route.navigate([''])
+        this.route.navigate(['/phone']);
       }, 2000);
     });
-
   }
 
   goBack() {

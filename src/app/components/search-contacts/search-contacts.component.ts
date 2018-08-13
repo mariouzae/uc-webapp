@@ -3,7 +3,7 @@ import { UserService } from '../../services/user.service';
 import { FormsModule, FormControl } from '@angular/forms';
 import { PhoneComponent } from '../phone/phone.component';
 import { map, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { Router } from '../../../../node_modules/@angular/router';
+import { Router } from '@angular/router';
 import { Response } from '@angular/http';
 
 @Component({

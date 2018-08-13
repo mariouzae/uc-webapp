@@ -14,11 +14,6 @@ export class UserService {
   //baseUrl: string = 'https://jsonplaceholder.typicode.com/users?name=';
   baseUrl: any = "assets/data.json";
   results: any[] = [];
-  r: any[] = [[
-    { name: 'Mike Gordon', sip: '1060@18.212.213.193', photo: 'assets/mike.jpg'},
-    { name: 'Jack Staton', sip: '1061@18.212.213.193', photo: 'assets/jack.jpg'}
-  ]
-  ];
 
   search(queryString: string) {
     //let _URL = this.baseUrl + queryString;

@@ -1,0 +1,4 @@
+[
+    { "login": "mike", "pass": "199", "name": "Mike Gordon", "sip": "199@18.211.195.231", "photo": "assets/mike.jpg"},
+    { "login": "jack", "pass": "200", "name": "Jack Staton", "sip": "200@18.211.195.231", "photo": "assets/jack.jpg"}
+]

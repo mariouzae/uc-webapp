@@ -1,14 +1,6 @@
-import {
-  Component,
-  Input
-} from '@angular/core';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition
-} from '@angular/animations';
+import { Component, Input, OnInit } from '@angular/core';
+import { trigger, state, style, animate, transition } from '@angular/animations';
+import * as SIP from 'sip.js/dist/sip';
 
 @Component({
   selector: 'app-base',
@@ -39,7 +31,22 @@ import {
     ])
   ]
 })
-export class BaseComponent {
+export class BaseComponent implements OnInit {
+
+  ngOnInit()
+  {
+    var userAgent = new SIP.UA({
+      uri: '199@18.211.195.231',
+      transportOptions: {
+        wsServers: 'wss://18.211.195.231:8089/ws',
+      },
+      authorizationUser: '199',
+      password: '199',
+      register: false,
+      registrarServer: 'sip:18.211.195.231'
+    });
+  }
+
   heroes = [
     { name: 'Windstorm', state: 'active' },
     { name: 'Windstorm', state: 'inactive' },

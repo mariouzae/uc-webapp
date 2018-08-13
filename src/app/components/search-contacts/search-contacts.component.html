@@ -10,8 +10,8 @@
     <div class="filter">
         <div class="col-sm-12">
             <ul class="filter-select">
-                <li *ngFor="let result of results" class="filter-select-list" (click)="call(result.name)">
-                    <img src="#" alt="" width="50" height="50">
+                <li *ngFor="let result of results | filter:finalNumber" class="filter-select-list" (click)="call(result.name)">
+                    <img src="{{result.photo}}" alt="" width="50" height="50">
                     <span>{{result.name}}</span>
                 </li>
             </ul>

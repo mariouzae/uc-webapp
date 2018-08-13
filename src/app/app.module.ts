@@ -11,9 +11,12 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from './services/user.service';
 import { CallComponent } from './pages/call/call.component';
 import { Routes, Route, RouterModule } from '@angular/router';
+import { FilterPipe } from './pipes/filter.pipe';
+import { LoginComponent } from './pages/login/login.component';
 
 const appRoutes: Routes = [
-  { path: '', component: BaseComponent },
+  { path: '', component: LoginComponent },
+  { path: 'phone', component: BaseComponent },
   { path: 'call/:name', component: CallComponent }
 ];
 
@@ -23,7 +26,9 @@ const appRoutes: Routes = [
     PhoneComponent,
     BaseComponent,
     SearchContactsComponent,
-    CallComponent
+    CallComponent,
+    FilterPipe,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
