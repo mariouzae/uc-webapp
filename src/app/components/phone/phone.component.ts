@@ -31,7 +31,7 @@ export class PhoneComponent implements OnInit {
 
   // public state = 'open';
   toggleState(value: string) {
-    this.numberCall.emit(value);
+    this.numberCall.emit(value.substr(0,1));
   }
 
 }

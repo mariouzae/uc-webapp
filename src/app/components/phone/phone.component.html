@@ -1,22 +1,13 @@
-<!-- <div class="container-fluig"> -->
 <div class="base">
-    <div class="row text-center">
-        <div class="col-md-4 col-xs-4 col-sm-4 record" (click)="toggleState(this)">
-            1
+    <div class="row text-center record">
+        <div class="col-md-4 col-xs-4 col-sm-4" (click)="toggleState($event.target.innerText)">1
         </div>
-        <div class="col-md-4 col-xs-4 col-sm-4" (click)="toggleState($event.target.innerText)">
-            2
-            <div class="row sub-letters">
-                <div class="col-md-12 col-xs-12">ABC</div>
-            </div>
+        <div class="col-md-4 col-xs-4 col-sm-4" (click)="toggleState($event.target.innerText)">2
+            <div class="sub-letters">ABC</div>
         </div>
-        <div class="col-md-4 col-xs-4 col-sm-4" (click)="toggleState($event.target.innerText)">
-            3
-            <div class="row sub-letters">
-                <div class="col-md-12 col-xs-12">DEF</div>
-            </div>
+        <div class="col-md-4 col-xs-4 col-sm-4" (click)="toggleState($event.target.innerText)">3
+            <div class="sub-letters">DEF</div>
         </div>
-        <div class="col-md-3 col-sm-3 col-xs-3"></div>
     </div>
     <hr>
     <div class="row text-center">
@@ -61,5 +52,3 @@
         <div class="col-md-4 col-xs-4 col-sm-4" (click)="toggleState($event.target.innerText)">#</div>
     </div>
 </div>
-
-<!--</div> -->
