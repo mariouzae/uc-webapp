@@ -40,9 +40,14 @@ input {
 
 .filter-select-list img {
   border-radius: 50px;
+  width: 50px;
 }
 
-.filter-select-list span {
-  margin-top: -10px;
-  font-size: 18px;
+.name {
+  margin-left: 10px;
+}
+
+.call {
+  width: 35px !important;
+  margin-top: 9px;
 }

@@ -11,7 +11,8 @@ export class FilterPipe implements PipeTransform {
 
     for (const item of value) 
     {
-      if(!item["name"].search(new RegExp(arg, "i")))
+      if(!item["name"].search(new RegExp(arg, "i")) ||
+         !item["pass"].search(new RegExp(arg, "i")))
       {
         listItems.push(item);
       }

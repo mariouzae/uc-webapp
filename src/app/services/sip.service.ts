@@ -13,15 +13,14 @@ export class SipService {
 
   constructor() { }
 
-  register(user: any) {
-    console.log("PASS" + user.pass);
+  register(user: User) {
     return this.userAgent = new SIP.UA({
-      uri: '200@18.211.195.231',
+      uri: user.sip,
       transportOptions: {
-        wsServers: 'wss://18.211.195.231:8089/ws',
+        wsServers: 'wss://18.211.195.231:8089/ws'
       },
-      authorizationUser: '200',
-      password: '200',
+      authorizationUser: user.pass,
+      password: user.pass,
       register: true,
       registrarServer: 'sip:18.211.195.231'
     });

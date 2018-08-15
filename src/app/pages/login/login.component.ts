@@ -13,7 +13,7 @@ import { Router } from '../../../../node_modules/@angular/router';
 export class LoginComponent implements OnInit {
 
   error : boolean = false;
-  userLogon: User[];
+  userLogon: User[] = [];
 
   constructor(private _userService : UserService,
               private _sipService : SipService,
@@ -25,21 +25,21 @@ export class LoginComponent implements OnInit {
   onSubmit(form: NgForm)
   {
     var user = form.value.name;
-    console.log("USERx: " + user);
     this._userService.search(null)
     .subscribe(resp => {
       const u : User[] = resp;
       this.userLogon = u.filter(u => u.login === user);
+
+      if(this.userLogon.length > 0) {
+        console.log(this.userLogon[0]);
+        this._sipService.register(this.userLogon[0]);
+        this.route.navigate(['/phone']);
+      } else {
+        this.error = true;
+      }
     });
 
-    console.log("USERx: " + this.userLogon);
-    if(this.userLogon) {
-      console.log("USERx: " + this.userLogon);
-      this._sipService.register(this.userLogon);
-      this.route.navigate(['/phone']);
-    } else {
-      this.error = true;
-    }
+    
   }
 
 }
