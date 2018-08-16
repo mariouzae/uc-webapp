@@ -19,11 +19,11 @@ export class CallComponent implements OnInit {
   @ViewChild('remoteAudio') remoteAudio: ElementRef;
   user: { name: string };
   userToCall: object;
-  imgUrl: string;
+  imgUrl: string = "assets/microphone.png";
+  videoUrl: string = "assets/video.png";
   userPhoto: string;
   sipNumber: string
   userName: string;
-  videoUrl: string;
   durationTime: string;
   userAgent;
 
@@ -35,10 +35,16 @@ export class CallComponent implements OnInit {
       name: this.router.snapshot.params['name']
     };
 
-    var member;
+    //var member;
 
     if (this.user.name.length <= 0) this.goBack();
 
+    // var user = this._sipService.getCurrentUser();
+    // this.userName = user.name;
+    // this.userPhoto = user.photo;
+    // this.sipNumber = user.sip;
+    // // call to user
+    // this.call(user);
     this._userService.search(this.user.name)
     .subscribe((result: any) => {
       const resp : User[] =  result;
@@ -56,34 +62,7 @@ export class CallComponent implements OnInit {
   }
 
   call(user: any) {
-    this.imgUrl = "assets/microphone.png";
-    this.videoUrl = "assets/video.png";
-    //var session;
-
-    // var userAgent = new SIP.UA({
-    //   uri: '199@18.211.195.231',
-    //   transportOptions: {
-    //     wsServers: 'wss://18.211.195.231:8089/ws',
-    //   },
-    //   authorizationUser: '199',
-    //   password: '199',
-    //   register: false,
-    //   registrarServer: 'sip:18.211.195.231'
-    //   // turnServers: {
-    //   //   urls:"turn:numb.viagenie.ca",
-    //   //   username:"mariouzae@gmail.com",
-    //   //   password:"dasilva"
-    //   // }
-    // });
-
-    var session = this.userAgent.invite('200@18.212.213.193', {
-      sessionDescriptionHandlerOptions: {
-        constraints: {
-          audio: true,
-          video: false
-        }
-      }
-    });
+    var session = this._sipService.invite(user);
     
     session.on('trackAdded', () => {
       var pc = session.sessionDescriptionHandler.peerConnection;
@@ -111,7 +90,7 @@ export class CallComponent implements OnInit {
   }
 
   goBack() {
-    this.route.navigate(['']);
+    this.route.navigate(['/phone']);
   }
 
   mute()

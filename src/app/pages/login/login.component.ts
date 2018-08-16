@@ -31,15 +31,17 @@ export class LoginComponent implements OnInit {
       this.userLogon = u.filter(u => u.login === user);
 
       if(this.userLogon.length > 0) {
-        console.log(this.userLogon[0]);
         this._sipService.register(this.userLogon[0]);
         this.route.navigate(['/phone']);
       } else {
         this.error = true;
       }
     });
+  }
 
-    
+  isRegistered() : Boolean
+  {
+    return this._sipService.getSipRegistered();
   }
 
 }

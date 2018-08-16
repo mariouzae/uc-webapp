@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import * as SIP from 'sip.js/dist/sip';
+import { SipService } from '../../services/sip.service';
 
 @Component({
   selector: 'app-base',
@@ -32,19 +33,28 @@ import * as SIP from 'sip.js/dist/sip';
   ]
 })
 export class BaseComponent implements OnInit {
+  registered : Boolean = false;
+  sip: String;
+  userAgent: any;
 
+  constructor(private _sipService: SipService) {}
+  
   ngOnInit()
   {
-    var userAgent = new SIP.UA({
-      uri: '199@18.211.195.231',
-      transportOptions: {
-        wsServers: 'wss://18.211.195.231:8089/ws',
-      },
-      authorizationUser: '199',
-      password: '199',
-      register: false,
-      registrarServer: 'sip:18.211.195.231'
-    });
+    if(this._sipService.getSipRegistered())
+    {
+      this.registered = true;
+      this.sip = this._sipService.getCurrentUser().sip;
+    }
+    this._sipService.registered.subscribe((status: Boolean) => {
+      this.registered = status;
+      this.sip = this._sipService.getCurrentUser().sip;
+      this.userAgent = this._sipService.getUserAgent();
+      this.userAgent.on('invite', (session) => {
+       session.accept();
+       console.log("calling")
+      })
+    })
   }
 
   heroes = [
@@ -61,7 +71,6 @@ export class BaseComponent implements OnInit {
   callNumber : Boolean;
 
   toggleState() {
-    console.log(this.state);
     this.state = this.state === 'active' ? 'inactive' : 'active';
   }
 

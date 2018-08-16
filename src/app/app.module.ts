@@ -13,6 +13,7 @@ import { CallComponent } from './pages/call/call.component';
 import { Routes, Route, RouterModule } from '@angular/router';
 import { FilterPipe } from './pipes/filter.pipe';
 import { LoginComponent } from './pages/login/login.component';
+import { SipService } from './services/sip.service';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
