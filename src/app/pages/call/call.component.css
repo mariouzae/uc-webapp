@@ -1,6 +1,6 @@
 .base {
     margin: 0 auto;
-    width: 298px;
+    max-width: 330px;
     /* border: 1px solid gray; */
     height: 539px;
     background-color: #8492A6;

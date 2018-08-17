@@ -5,6 +5,7 @@ import { map, filter } from 'rxjs/operators';
 import { User } from '../../models/user.model';
 import * as SIP from 'sip.js/dist/sip';
 import { SipService } from '../../services/sip.service';
+import { ThrowStmt } from '../../../../node_modules/@angular/compiler';
 
 @Component({
   selector: 'app-call',
@@ -25,7 +26,8 @@ export class CallComponent implements OnInit {
   sipNumber: string
   userName: string;
   durationTime: string;
-  userAgent;
+  userAgent: any;
+  callStatus: string;
 
   constructor(private router: ActivatedRoute, private route: Router,
     private _userService: UserService, private _sipService: SipService) { }
@@ -35,16 +37,11 @@ export class CallComponent implements OnInit {
       name: this.router.snapshot.params['name']
     };
 
-    //var member;
+    // set call status
+    this.callStatus = "calling " + this.user.name;
 
+    // search the requested user and call
     if (this.user.name.length <= 0) this.goBack();
-
-    // var user = this._sipService.getCurrentUser();
-    // this.userName = user.name;
-    // this.userPhoto = user.photo;
-    // this.sipNumber = user.sip;
-    // // call to user
-    // this.call(user);
     this._userService.search(this.user.name)
     .subscribe((result: any) => {
       const resp : User[] =  result;
@@ -73,13 +70,14 @@ export class CallComponent implements OnInit {
         remoteStream.addTrack(receiver.track);
       });
       this.remoteVideo.nativeElement.srcObject = remoteStream;
-      
       // Gets local tracks
       var localStream = new MediaStream();
       pc.getSenders().forEach(function(sender) {
         localStream.addTrack(sender.track);
       });
       this.localVideo.nativeElement.srcObject = localStream;
+      // Set call status
+      this.callStatus = "on call";
     });
 
     session.on('bye', () => {

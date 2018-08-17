@@ -1,9 +1,9 @@
 <input type="text" class="form-group" #fieldName (focus)="digteNumber(fieldName.value)" (input)="digteNumber(fieldName.value)"
     [ngModel]="finalNumber" [formControl]="finaNumber">
 <ul class="filter-select">
-    <li *ngFor="let result of results | filter:finalNumber" class="filter-select-list" (click)="call(result.name)">
+    <li *ngFor="let result of results | filter:finalNumber" class="filter-select-list">
         <img src="{{result.photo}}">
         <span class="name">{{result.name}}</span>
-        <img src="assets/call.png" class="call pull-right" routerLink="/phone/{{result.name}}">
+        <img src="assets/call.png" class="call pull-right" (click)="call(result.name)">
     </li>
 </ul>
