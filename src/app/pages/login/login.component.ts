@@ -20,6 +20,11 @@ export class LoginComponent implements OnInit {
               private route : Router) { }
 
   ngOnInit() {
+    // First of all, unregister any logged user in this sip provider.
+    if(this._sipService.getUserAgent() != null)
+    {
+      this._sipService.unRegister();
+    }
   }
 
   onSubmit(form: NgForm)

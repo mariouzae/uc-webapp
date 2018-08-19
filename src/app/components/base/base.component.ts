@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import * as SIP from 'sip.js/dist/sip';
 import { SipService } from '../../services/sip.service';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-base',
@@ -33,28 +34,40 @@ import { SipService } from '../../services/sip.service';
   ]
 })
 export class BaseComponent implements OnInit {
-  registered : Boolean = false;
+  registered : string;
   sip: String;
   userAgent: any;
+  @ViewChild('remote') remote: ElementRef;
+  ringing: String;
 
-  constructor(private _sipService: SipService) {}
+  constructor(private _sipService: SipService,
+  private route : Router) {}
   
   ngOnInit()
   {
     if(this._sipService.getSipRegistered())
     {
-      this.registered = true;
+      //console.log("User: ", this._sipService.getCurrentUser().name);
+      this.registered = "green";
       this.sip = this._sipService.getCurrentUser().sip;
+    } else {
+      this.registered = "red";
+      this.sip = "not registered, sign in again";
+      //this.route.navigate(['/']);
     }
     this._sipService.registered.subscribe((status: Boolean) => {
-      this.registered = status;
+      this.registered = "green";
       this.sip = this._sipService.getCurrentUser().sip;
       this.userAgent = this._sipService.getUserAgent();
-      this.userAgent.on('invite', (session) => {
-       session.accept();
-       console.log("calling")
-      })
-    })
+    });
+
+    // On receive call
+    this._sipService.ringing.subscribe((ringing: String) => {
+      // accept the call
+      this._sipService.acceptSession(this.remote);
+      console.log("ringing on client");
+      this.ringing = ringing;
+    });
   }
 
   heroes = [

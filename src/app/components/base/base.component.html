@@ -5,10 +5,10 @@
     </div>
     <div class="row">
       <div class="col-md-12 status pull-right">
-          <span>sip: {{sip}}</span>
-          <img src="assets/status.ico" *ngIf="registered">
+        <span>{{ringing}}</span>
+        <span>sip: {{sip}}</span>
+        <img src="assets/{{registered}}.ico">
       </div>
-      
     </div>
     <ul class="nav nav-tabs nav-justified tab">
       <li role="presentation">
@@ -31,5 +31,5 @@
       </div>
     </div>
   </div>
-
+  <video #remote autoplay></video>
 </div>

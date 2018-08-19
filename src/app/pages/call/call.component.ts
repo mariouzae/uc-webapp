@@ -33,25 +33,24 @@ export class CallComponent implements OnInit {
     private _userService: UserService, private _sipService: SipService) { }
 
   ngOnInit() {
-    this.user = {
+    var user = {
       name: this.router.snapshot.params['name']
     };
 
     // set call status
-    this.callStatus = "calling " + this.user.name;
+    this.callStatus = "calling " + user.name;
 
     // search the requested user and call
-    if (this.user.name.length <= 0) this.goBack();
-    this._userService.search(this.user.name)
+    if (user.name.length <= 0) this.goBack();
+    this._userService.search(user.name)
     .subscribe((result: any) => {
       const resp : User[] =  result;
-      this.userToCall = resp.filter(item => item.name === this.user.name);
+      this.userToCall = resp.filter(item => item.name === user.name);
       if(this.userToCall != null)
       {
         this.userName = this.userToCall[0].name;
         this.userPhoto = this.userToCall[0].photo;
         this.sipNumber = this.userToCall[0].sip;
-        this.userAgent = this._sipService.register(this.userToCall[0]);
         this.call(this.userToCall[0]);
       }
     })
@@ -59,7 +58,7 @@ export class CallComponent implements OnInit {
   }
 
   call(user: any) {
-    var session = this._sipService.invite(user);
+    var session = this._sipService.invite(user, this.remoteVideo);
     
     session.on('trackAdded', () => {
       var pc = session.sessionDescriptionHandler.peerConnection;
@@ -89,6 +88,7 @@ export class CallComponent implements OnInit {
 
   goBack() {
     this.route.navigate(['/phone']);
+    this._sipService.terminate();
   }
 
   mute()
