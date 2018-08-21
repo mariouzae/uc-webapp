@@ -40,82 +40,57 @@ export class SipService {
       this.registered.emit(false);
     });
 
-    this.userAgent.on('invite', function(session) {
+    this.userAgent.on('invite', (session) => {
       console.log("Receive a call, ringing...");
       this.callSession = session;
-      //this.ringing.emit("ringing");
-      this.callSession.accept();
-      this.callSession.on('accepted', function() {
-        var pc = this.callSession.sessionDescriptionHandler.peerConnection;
-        // Gets remote tracks
-        var remoteStream = new MediaStream();
-        pc.getReceivers().forEach(function(receiver) {
-          remoteStream.addTrack(receiver.track);
-        });
-        element.nativeElement.srcObject = remoteStream;
-        console.log(this.callSession);
-    });
+      this.ringing.emit("ringing");
     });
   }
 
-  invite(user: User, element: ElementRef) : any {
-    console.log("User logged: ", this.getCurrentUser().name);
-    console.log("Calling user: ", user.name);
-    return this.userAgent.invite(user.sip, element);
+  invite(user: User, element: ElementRef): any {
+    this.session = this.userAgent.invite(user.sip, {
+      sessionDescriptionHandlerOptions: {
+          constraints: {
+              audio: true,
+              video: true
+          }
+      }});
+      return this.session;
   }
-
-  //   {
-  //     sessionDescriptionHandlerOptions: {
-  //       constraints: {
-  //         audio: true,
-  //         video: false
-  //       }
-  //     }
-  //   }
-  // }
 
   terminate() {
-    this.callSession.terminate();
+    this.session.terminate();
   }
 
-  unRegister()
-  {
+  unRegister() {
     this.userAgent.unregister();
   }
 
-  acceptSession(element: ElementRef)
-  {
+  acceptSession(remoteVideo, localVideo: ElementRef) {
     this.callSession.accept();
-    this.callSession.on('accepted', function() {
-        // var pc = this.callSession.sessionDescriptionHandler.peerConnection;
-        // // Gets remote tracks
-        // var remoteStream = new MediaStream();
-        // pc.getReceivers().forEach(function(receiver) {
-        //   remoteStream.addTrack(receiver.track);
-        // });
-        // element.nativeElement.srcObject = remoteStream;
-        console.log(this.callSession);
+    this.callSession.on('trackAdded', () => {
+      var pc = this.callSession.sessionDescriptionHandler.peerConnection;
+      // Gets remote tracks
+      var remoteStream = new MediaStream();
+      pc.getReceivers().forEach(function (receiver) {
+        remoteStream.addTrack(receiver.track);
+      });
+      remoteVideo.nativeElement.srcObject = remoteStream;
     });
-    this.callSession.on('trackAdded', function(){
-      console.log("Session: ", this.callSession);
-    })
   }
 
-  getSipRegistered() : Boolean 
-  {
-    if(this.getUserAgent() != null) {
+  getSipRegistered(): Boolean {
+    if (this.getUserAgent() != null) {
       return this.userAgent.isRegistered();
-    } 
+    }
     return false;
   }
 
-  getCurrentUser() : User
-  {
+  getCurrentUser(): User {
     return this.user;
   }
 
-  getUserAgent()
-  {
+  getUserAgent() {
     return this.userAgent;
   }
 

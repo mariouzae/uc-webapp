@@ -17,7 +17,6 @@ export class CallComponent implements OnInit {
   
   @ViewChild('remoteVideo') remoteVideo: ElementRef;
   @ViewChild('localVideo') localVideo: ElementRef;
-  @ViewChild('remoteAudio') remoteAudio: ElementRef;
   user: { name: string };
   userToCall: object;
   imgUrl: string = "assets/microphone.png";
@@ -69,12 +68,12 @@ export class CallComponent implements OnInit {
         remoteStream.addTrack(receiver.track);
       });
       this.remoteVideo.nativeElement.srcObject = remoteStream;
-      // Gets local tracks
-      var localStream = new MediaStream();
-      pc.getSenders().forEach(function(sender) {
-        localStream.addTrack(sender.track);
-      });
-      this.localVideo.nativeElement.srcObject = localStream;
+      // // Gets local tracks
+      // var localStream = new MediaStream();
+      // pc.getSenders().forEach(function(sender) {
+      //   localStream.addTrack(sender.track);
+      // });
+      // this.localVideo.nativeElement.srcObject = localStream;
       // Set call status
       this.callStatus = "on call";
     });
@@ -87,8 +86,11 @@ export class CallComponent implements OnInit {
   }
 
   goBack() {
-    this.route.navigate(['/phone']);
     this._sipService.terminate();
+    setTimeout(() => {
+      this.route.navigate(['/phone']);
+    }, 2000);
+    
   }
 
   mute()
