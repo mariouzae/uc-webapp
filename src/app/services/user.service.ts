@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { User } from '../models/user.model';
 //import { map } from '../../../node_modules/rxjs/operators';
 
 @Injectable({
@@ -22,6 +23,6 @@ export class UserService {
         return response.json();
       })
     );
-    
   }
+
 }

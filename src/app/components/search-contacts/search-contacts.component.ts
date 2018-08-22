@@ -23,7 +23,6 @@ export class SearchContactsComponent implements OnInit {
   name = '';
   userLogged = '200';
 
-
   constructor(private _userService: UserService, private router: Router) { }
 
   ngOnInit() {

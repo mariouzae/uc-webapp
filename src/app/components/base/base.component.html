@@ -24,6 +24,7 @@
     </ul>
     <div class="tab-content clearfix">
       <div id="1tab" class="tab-pane">
+        <app-chat></app-chat>
       </div>
       <div id="2tab" class="tab-pane active">
         <app-search-contacts (callNumber)="callNumberBtn($event)" (searchNumber)="searchCall($event)" [finalNumber]="finalNumber"></app-search-contacts>
@@ -31,8 +32,6 @@
       </div>
     </div>
   </div>
-
   <video #remote autoplay></video>
   <video #local></video>
-  <span>teste</span>
 </div>

@@ -14,6 +14,7 @@ import { Routes, Route, RouterModule } from '@angular/router';
 import { FilterPipe } from './pipes/filter.pipe';
 import { LoginComponent } from './pages/login/login.component';
 import { SipService } from './services/sip.service';
+import { ChatComponent } from './components/chat/chat.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -29,7 +30,8 @@ const appRoutes: Routes = [
     SearchContactsComponent,
     CallComponent,
     FilterPipe,
-    LoginComponent
+    LoginComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
