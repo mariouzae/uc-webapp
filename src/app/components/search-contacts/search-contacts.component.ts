@@ -5,6 +5,8 @@ import { PhoneComponent } from '../phone/phone.component';
 import { map, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Response } from '@angular/http';
+import { User } from '../../models/user.model';
+import { SipService } from '../../services/sip.service';
 
 @Component({
   selector: 'app-search-contacts',
@@ -22,11 +24,13 @@ export class SearchContactsComponent implements OnInit {
   finaNumber: FormControl = new FormControl();
   name = '';
   userLogged = '200';
+  currentUser: string;
 
-  constructor(private _userService: UserService, private router: Router) { }
+  constructor(private _userService: UserService, private router: Router,
+  private _sipService: SipService) { }
 
   ngOnInit() {
-    
+    this.currentUser = this._sipService.getCurrentUser().login; 
   }
 
   digteNumber(value: any) {
@@ -36,8 +40,11 @@ export class SearchContactsComponent implements OnInit {
       debounceTime(300),
       distinctUntilChanged(),
       switchMap((query) => this._userService.search(query)))
-      .subscribe((result: any[]) => {
-        this.results = result;
+      .subscribe((result) => {
+        const users : User[] = result.filter((u) => {
+          return u.login != this.currentUser;
+        });
+        this.results = users
       });
   }
 

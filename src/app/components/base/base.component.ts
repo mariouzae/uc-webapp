@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ElementRef, ViewChild } from '@angular/core';
 import * as SIP from 'sip.js/dist/sip';
 import { SipService } from '../../services/sip.service';
 import { Route, Router } from '@angular/router';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-base',
@@ -14,13 +15,16 @@ export class BaseComponent implements OnInit {
   userAgent: any;
   @ViewChild('remote') remoteVideo: ElementRef;
   @ViewChild('local') localVideo: ElementRef;
+  @ViewChild('openModal') openModal:ElementRef;
   ringing: String;
   calling: Boolean = true;
+  user: User;
 
   constructor(private _sipService: SipService, private route : Router) {}
   
   ngOnInit()
   {
+    //this.openModal.nativeElement.click();
     if(this._sipService.getSipRegistered())
     {
       this.registered = "green";
@@ -41,7 +45,7 @@ export class BaseComponent implements OnInit {
       // accept the call
       this._sipService.acceptSession(this.remoteVideo, this.localVideo);
       console.log("call incoming accepted...");
-      this.ringing = ringing;
+      //this.ringing = ringing;
     });
   }
 

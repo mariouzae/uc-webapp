@@ -15,6 +15,7 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { LoginComponent } from './pages/login/login.component';
 import { SipService } from './services/sip.service';
 import { ChatComponent } from './components/chat/chat.component';
+import { ChatUserComponent } from './pages/chat-user/chat-user.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -31,7 +32,8 @@ const appRoutes: Routes = [
     CallComponent,
     FilterPipe,
     LoginComponent,
-    ChatComponent
+    ChatComponent,
+    ChatUserComponent
   ],
   imports: [
     BrowserModule,

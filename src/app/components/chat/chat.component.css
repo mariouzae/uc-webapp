@@ -1,0 +1,14 @@
+.base {
+    font-size: 1.5em;
+    margin-top: 25px;
+}
+
+img {
+    margin-left: 10px;
+    border-radius: 50%;
+    width: 50px;
+}
+
+span {
+    margin-left: 20px;
+}

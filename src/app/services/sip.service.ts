@@ -43,7 +43,7 @@ export class SipService {
     this.userAgent.on('invite', (session) => {
       console.log("Receive a call, ringing...");
       this.callSession = session;
-      this.ringing.emit("ringing");
+      this.ringing.emit(session.remoteIdentity.uri.user);
     });
   }
 
