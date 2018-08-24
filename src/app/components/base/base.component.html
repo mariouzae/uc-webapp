@@ -40,32 +40,35 @@
   </button>
 
   <!-- Modal -->
-  <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" id="myModal" aria-labelledby="mySmallModalLabel">
-    <div class="modal-dialog modal-sm" role="document">
-      <div class="modal-content">
-        <div class="modal-header footer">
-          <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <!-- <img src="{{user.photo}}" alt="" class="caller"> -->
+  <div>
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" id="myModal" aria-labelledby="mySmallModalLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header footer">
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <img src="{{user.photo}}" alt="" class="caller">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                {{user.name}}
+              </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <!-- {{user.name}} -->
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer footer">
-          <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-6">
-              <img src="assets/call.png" data-dismiss="modal" class="call-icon">
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-6">
-              <img src="assets/hangup.png" data-dismiss="modal" class="call-icon">
+          <div class="modal-footer footer">
+            <div class="row">
+              <div class="col-md-6 col-sm-6 col-xs-6">
+                <img src="assets/call.png" data-dismiss="modal" class="call-icon" (click)="acceptCall()" #closeModal>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-6">
+                <img src="assets/hangup.png" data-dismiss="modal" class="call-icon" (click)="declineCall()">
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
 </div>

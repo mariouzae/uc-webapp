@@ -14,7 +14,7 @@ import { ThrowStmt } from '../../../../node_modules/@angular/compiler';
   providers: [UserService]
 })
 export class CallComponent implements OnInit {
-  
+
   @ViewChild('remoteVideo') remoteVideo: ElementRef;
   @ViewChild('localVideo') localVideo: ElementRef;
   user: { name: string };
@@ -27,6 +27,7 @@ export class CallComponent implements OnInit {
   durationTime: string;
   userAgent: any;
   callStatus: string;
+  receivedCall: Boolean;
 
   constructor(private router: ActivatedRoute, private route: Router,
     private _userService: UserService, private _sipService: SipService) { }
@@ -36,35 +37,46 @@ export class CallComponent implements OnInit {
       name: this.router.snapshot.params['name']
     };
 
+    this.router.queryParams.subscribe(params => {
+      this.receivedCall = params['received'];
+    });
+
     // set call status
     this.callStatus = "calling " + user.name;
 
     // search the requested user and call
     if (user.name.length <= 0) this.goBack();
     this._userService.search(user.name)
-    .subscribe((result: any) => {
-      const resp : User[] =  result;
-      this.userToCall = resp.filter(item => item.name === user.name);
-      if(this.userToCall != null)
-      {
-        this.userName = this.userToCall[0].name;
-        this.userPhoto = this.userToCall[0].photo;
-        this.sipNumber = this.userToCall[0].sip;
-        this.call(this.userToCall[0]);
-      }
-    })
+      .subscribe((result: any) => {
+        const resp: User[] = result;
+        this.userToCall = resp.filter(item => item.name === user.name);
+        if (this.userToCall != null) {
+          this.userName = this.userToCall[0].name;
+          this.userPhoto = this.userToCall[0].photo;
+          this.sipNumber = this.userToCall[0].sip;
+
+          if (this.receivedCall) {
+            this.getSessionDurationTime();
+            this._sipService.terminated.subscribe(term => {
+              this.goBack();
+            })
+          } else {
+            this.call(this.userToCall[0]);
+          }
+        }
+      })
 
   }
 
   call(user: any) {
     var session = this._sipService.invite(user, this.remoteVideo);
-    
+
     session.on('trackAdded', () => {
       var pc = session.sessionDescriptionHandler.peerConnection;
       this.getSessionDurationTime();
       // Gets remote tracks
       var remoteStream = new MediaStream();
-      pc.getReceivers().forEach(function(receiver) {
+      pc.getReceivers().forEach(function (receiver) {
         remoteStream.addTrack(receiver.track);
       });
       this.remoteVideo.nativeElement.srcObject = remoteStream;
@@ -78,6 +90,10 @@ export class CallComponent implements OnInit {
       this.callStatus = "on call";
     });
 
+    session.on('rejected', () => {
+      this.goBack();
+    });
+
     session.on('bye', () => {
       setTimeout(() => {
         this.route.navigate(['/phone']);
@@ -86,32 +102,33 @@ export class CallComponent implements OnInit {
   }
 
   goBack() {
-    this._sipService.terminate();
+    if (!this.receivedCall) {
+      this._sipService.terminate();
+    } else {
+      this._sipService.terminatePeer();
+    }
     setTimeout(() => {
       this.route.navigate(['/phone']);
     }, 2000);
-    
+
   }
 
-  mute()
-  {
-    if(this.imgUrl == "assets/microphone.png") {
+  mute() {
+    if (this.imgUrl == "assets/microphone.png") {
       this.imgUrl = "assets/cut-microphone.png";
       this.remoteVideo.nativeElement.muted = true;
-     } else {
+    } else {
       this.imgUrl = "assets/microphone.png";
       this.remoteVideo.nativeElement.muted = false;
-     } 
+    }
   }
 
-  video()
-  {
+  video() {
     this.videoUrl == "assets/video.png" ? this.videoUrl = "assets/cut-video.png" : this.videoUrl = "assets/video.png";
   }
 
-  getSessionDurationTime()
-  {
-    var start = new Date().getTime(); 
+  getSessionDurationTime() {
+    var start = new Date().getTime();
     setInterval(() => {
       // Get todays date and time
       var now = new Date().getTime();

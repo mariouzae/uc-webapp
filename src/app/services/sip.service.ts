@@ -13,6 +13,8 @@ export class SipService {
   private user: User;
   registered = new EventEmitter<Boolean>();
   ringing = new EventEmitter<String>();
+  failedCall = new EventEmitter<Boolean>();
+  terminated = new EventEmitter<Boolean>();
 
   constructor() { }
 
@@ -62,6 +64,11 @@ export class SipService {
     this.session.terminate();
   }
 
+  terminatePeer()
+  {
+    this.callSession.terminate();
+  }
+
   unRegister() {
     this.userAgent.unregister();
   }
@@ -77,6 +84,19 @@ export class SipService {
       });
       remoteVideo.nativeElement.srcObject = remoteStream;
     });
+
+    this.callSession.on('failed', () => {
+      this.failedCall.emit(true);
+    })
+
+    this.callSession.on('terminated', () => {
+      this.terminated.emit(true);
+    })
+  }
+
+  rejectSession()
+  {
+    this.callSession.reject();
   }
 
   getSipRegistered(): Boolean {
