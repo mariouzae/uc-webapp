@@ -1,3 +1,24 @@
-<p>
-  chat-user works!
-</p>
+<div class="container-fluid">
+  <div class="base">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12 top">
+        <span class="glyphicon glyphicon-chevron-left" (click)="goBack()"></span>
+        <img src="{{user.photo}}" alt="" class="photo">
+        <span class="username">{{user.name}}</span>
+        <span class="glyphicon glyphicon-earphone pull-right phone" routerLink="/call/{{user.name}}"></span>
+      </div>
+    </div>
+    <div class="row middle">
+      <div class="col-md-12 col-sm-12 col-xs-12" #message>
+      </div>
+    </div>
+    <div class="row bottom">
+      <div class="col-md-10 col-sm-10 col-xs-10">
+        <input type="text" name="" id="" placeholder="Type a message" #messageInput (keypress)="onEnter($event)">
+      </div>
+      <div class="col-md-2 col-sm-2 col-xs-2 pull-left">
+        <img src="assets/send.svg" class="sendButton" alt="" (click)="sendMessage()">
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,41 +1,38 @@
 <div class="container-fluid">
-  <div class="row base">
-    <div class="title">
-      <div class="col-xs-2 col-sm-2 col-md-2 text-left backbutton" (click)="goBack()">
-        <</div>
-          <div class="col-xs-10 col-sm-10 col-md-10 text-right number">
-            {{sipNumber}}
-          </div>
+  <div class="base">
+    <div class="">
+      <div class="col-md-12 title">
+          <span class="glyphicon glyphicon-chevron-left" (click)="goBack()"></span>
+          <p class="sip-number">{{sipNumber}}</p>
       </div>
-      <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 text-center photo">
-          <img src="{{userPhoto}}">
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 text-center photo-sub">
-          <span>{{callStatus}}</span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 text-center call-timing">
-          <span>{{ durationTime }}</span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-4 col-sm-4 col-md-4 video">
-            <img src={{videoUrl}} (click)="video()">
-        </div>
-        <div class="col-xs-4 col-sm-4 col-md-4 text-center end-button">
-          <img src="assets/hangup.png" (click)="goBack()">
-        </div>
-        <div class="col-xs-4 col-sm-4 col-md-4 microphone">
-          <img src={{imgUrl}} (click)="mute()">
-        </div>
-
-      </div>
-      <video #remoteVideo autoplay></video>
-      <video #localVideo></video>
     </div>
-
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 text-center photo">
+        <img src="{{userPhoto}}">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 text-center photo-sub">
+        <span>{{callStatus}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 text-center call-timing">
+        <span>{{ durationTime }}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-4 col-sm-4 col-md-4 video">
+        <img src={{videoUrl}} (click)="video()">
+      </div>
+      <div class="col-xs-4 col-sm-4 col-md-4 text-center end-button">
+        <img src="assets/hangup.png" (click)="goBack()">
+      </div>
+      <div class="col-xs-4 col-sm-4 col-md-4 microphone">
+        <img src={{imgUrl}} (click)="mute()">
+      </div>
+    </div>
+    <video #remoteVideo autoplay></video>
+    <video #localVideo></video>
   </div>
+</div>

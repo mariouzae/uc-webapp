@@ -1,0 +1,100 @@
+.base {
+    margin: 0 auto;
+    max-width: 330px;
+}
+
+p {
+    margin-bottom: 0px;
+}
+
+.top {
+    background-color: #ECECEC;
+    padding: 15px;
+}
+
+.middle {
+    background-color: white;
+    height: 470px;
+    border: 1px solid #ECECEC;
+}
+
+.bottom {
+    padding: 15px;
+    background-color: #ECECEC;
+    text-align: center;
+}
+
+img {
+    border-radius: 50%;
+    width: 50px;
+}
+
+.username {
+    font-size: 1.5em;
+    margin-left: 10px;
+}
+
+.phone {
+    width: 35px;
+    top: 12px;
+    font-size: 23px;
+}
+
+.glyphicon {
+    cursor: pointer;
+}
+
+input {
+    width: 100%;
+    height: 40px;
+    border: solid 1px #ccc;
+    border-radius: 50px;
+    padding-left: 15px;
+}
+
+.sendButton {
+    cursor: pointer;
+    width: 35px;
+}
+
+.photo {
+    margin-left: 30px;
+}
+
+.msg-text {
+    background-color: darkseagreen;
+    border-radius: 8px;
+    padding: 10px;
+    color: white;
+    margin-top: 10px;
+    display: table;
+    word-break: break-all;
+}
+
+.msg-self {
+    background-color: silver;
+    border-radius: 8px;
+    padding: 10px;
+    color: white;
+    margin-top: 10px;
+    display: table;
+    word-break: break-all;
+}
+
+@media (max-width: 768px) {
+    .base {
+        margin: 0;
+        max-width: 100%;
+    }
+    .middle {
+        background-color: white;
+    }
+    .bottom {
+        position: fixed;
+        bottom: 0px;
+        width: 100%;
+        padding: 15px;
+        background-color: #ECECEC;
+        text-align: center;
+    }
+}

@@ -20,7 +20,8 @@ import { ChatUserComponent } from './pages/chat-user/chat-user.component';
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'phone', component: BaseComponent },
-  { path: 'call/:name', component: CallComponent }
+  { path: 'call/:name', component: CallComponent },
+  { path: 'chat/:login', component: ChatUserComponent}
 ];
 
 @NgModule({

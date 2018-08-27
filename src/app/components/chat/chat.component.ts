@@ -10,7 +10,7 @@ import { User } from '../../models/user.model';
 })
 export class ChatComponent implements OnInit {
 
-  private usersList: User[];
+  public usersList: User[];
 
   constructor(private _userService: UserService, private _sipService: SipService) { }
 

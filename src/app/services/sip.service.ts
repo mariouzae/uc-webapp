@@ -15,6 +15,7 @@ export class SipService {
   ringing = new EventEmitter<String>();
   failedCall = new EventEmitter<Boolean>();
   terminated = new EventEmitter<Boolean>();
+  receivedMessage = new EventEmitter<String>();
 
   constructor() { }
 
@@ -47,6 +48,10 @@ export class SipService {
       this.callSession = session;
       this.ringing.emit(session.remoteIdentity.uri.user);
     });
+
+    this.userAgent.on('message', (message) => {
+      this.receivedMessage.emit(message.body);
+    })
   }
 
   invite(user: User, element: ElementRef): any {
@@ -112,6 +117,11 @@ export class SipService {
 
   getUserAgent() {
     return this.userAgent;
+  }
+
+  sendMessage(target, message)
+  {
+    this.userAgent.message(target, message);
   }
 
 }

@@ -1,23 +1,15 @@
 .base {
     margin: 0 auto;
     max-width: 330px;
-    /* border: 1px solid gray; */
     height: 539px;
     background-color: #8492A6;
     color: white;
 }
 
 .title {
-    padding: 30px;
+    padding: 25px;
     background-color: #343F4B;
-    z-index: 99;
-}
-
-.backbutton {
-    font-size: 24px;
-    margin-left: -31px;
-    margin-top: -22px;
-    cursor: pointer;
+    font-size: 1.5em;
 }
 
 .number {
@@ -58,7 +50,26 @@
 
 .video img {
     margin-top: 75px;
-    margin-left: 37px;
+    margin-left: 50px;
     height: 23px;
     cursor: pointer;
+}
+
+.sip-number {
+    text-align: center;
+    float: right;
+}
+
+.glyphicon {
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .base {
+        margin: 0 auto;
+        max-width: 100%;
+        height: auto;
+        background-color: #8492A6;
+        color: white;
+    }
 }
