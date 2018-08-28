@@ -1,4 +1,5 @@
 .base {
+    position: relative;
     margin: 0 auto;
     max-width: 330px;
 }
@@ -16,6 +17,7 @@ p {
     background-color: white;
     height: 470px;
     border: 1px solid #ECECEC;
+    overflow: auto;
 }
 
 .bottom {
@@ -68,6 +70,7 @@ input {
     padding: 10px;
     color: white;
     margin-top: 10px;
+    margin-bottom: 10px;
     display: table;
     word-break: break-all;
 }
@@ -78,17 +81,25 @@ input {
     padding: 10px;
     color: white;
     margin-top: 10px;
+    margin-bottom: 10px;
     display: table;
     word-break: break-all;
 }
 
-@media (max-width: 768px) {
-    .base {
-        margin: 0;
-        max-width: 100%;
+@media (max-width: 320px) {
+    /* .middle {
+        max-height: 330px;
+    } */
+    /* .base {
+        position: relative;
+        margin: 0 auto;
+        width: 100%;
     }
     .middle {
         background-color: white;
+        height: auto !important;
+        border: 1px solid #ECECEC;
+        overflow: auto;
     }
     .bottom {
         position: fixed;
@@ -97,5 +108,6 @@ input {
         padding: 15px;
         background-color: #ECECEC;
         text-align: center;
-    }
+        
+    } */
 }

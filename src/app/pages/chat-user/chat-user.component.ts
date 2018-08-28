@@ -61,9 +61,14 @@ export class ChatUserComponent implements OnInit {
 
   sendMessage()
   {
-    this._sipService.sendMessage(this.user.sip, this.messageInput.nativeElement.value);
-    this.createMessage(this.messageInput.nativeElement.value, 'msg-self');
-    this.messageInput.nativeElement.value = "";
+    //this._sipService.sendMessage(this.user.sip, this.messageInput.nativeElement.value);
+    var message = this.messageInput.nativeElement.value;
+    if (message != null && message != "")
+    {
+      this.createMessage(message, 'msg-self');
+      message = "";
+    }
+    
   }
 
   onEnter(event)

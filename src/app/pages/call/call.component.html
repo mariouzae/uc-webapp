@@ -1,38 +1,36 @@
-<div class="container-fluid">
-  <div class="base">
-    <div class="">
-      <div class="col-md-12 title">
-          <span class="glyphicon glyphicon-chevron-left" (click)="goBack()"></span>
-          <p class="sip-number">{{sipNumber}}</p>
-      </div>
+<div class="base">
+  <div class="row">
+    <div class="col-md-12 col-xs-12 col-sm-12 title">
+      <span class="glyphicon glyphicon-chevron-left" (click)="goBack()"></span>
+      <p class="sip-number">{{sipNumber}}</p>
     </div>
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-12 text-center photo">
-        <img src="{{userPhoto}}">
-      </div>
+  </div>
+  <div class="row photo">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+      <img src="{{userPhoto}}">
     </div>
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-12 text-center photo-sub">
-        <span>{{callStatus}}</span>
-      </div>
+  </div>
+  <div class="row photo-sub">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+      <span>{{callStatus}}</span>
     </div>
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-12 text-center call-timing">
-        <span>{{ durationTime }}</span>
-      </div>
+  </div>
+  <div class="row call-timing">
+    <div class="col-xs-12 col-sm-12 col-md-12 ">
+      <span>{{ durationTime }}</span>
     </div>
-    <div class="row">
+  </div>
+  <div class="row end-group">
+    <div class="div text-center">
       <div class="col-xs-4 col-sm-4 col-md-4 video">
         <img src={{videoUrl}} (click)="video()">
       </div>
-      <div class="col-xs-4 col-sm-4 col-md-4 text-center end-button">
+      <div class="col-xs-4 col-sm-4 col-md-4 end-button">
         <img src="assets/hangup.png" (click)="goBack()">
       </div>
       <div class="col-xs-4 col-sm-4 col-md-4 microphone">
         <img src={{imgUrl}} (click)="mute()">
       </div>
     </div>
-    <video #remoteVideo autoplay></video>
-    <video #localVideo></video>
   </div>
 </div>

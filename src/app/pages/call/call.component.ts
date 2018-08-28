@@ -24,7 +24,7 @@ export class CallComponent implements OnInit {
   userPhoto: string;
   sipNumber: string
   userName: string;
-  durationTime: string;
+  durationTime: string = "00:00:00"
   userAgent: any;
   callStatus: string;
   receivedCall: Boolean;
