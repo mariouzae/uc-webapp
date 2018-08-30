@@ -10,17 +10,19 @@ import { SipService } from '../../services/sip.service';
   styleUrls: ['./chat-user.component.css']
 })
 export class ChatUserComponent implements OnInit {
-  login: String;
-  user: User;
   @ViewChild('messageInput') messageInput:  ElementRef;
   @ViewChild('message') message: ElementRef;
+  login: String;
+  user: User;
+  userCalling: User;
+  incomingCall: Boolean = false;
 
   constructor(private router: ActivatedRoute, 
     private route: Router, 
     private _userService: UserService,
     private _sipService: SipService,
     private renderer: Renderer2,
-    private el: ElementRef) { }
+    private el: ElementRef) {}
 
   ngOnInit() {
       this.login = this.router.snapshot.params['login'];
@@ -35,10 +37,22 @@ export class ChatUserComponent implements OnInit {
         this.user = u[0];
       });
 
-      // Subscribe to recieve messages
+      // Subscribe to receive messages
       this._sipService.receivedMessage.subscribe((message) => {
         this.createMessage(message, 'msg-text');
-      })
+      });
+
+      // listen to incoming calls
+      this._sipService.ringing.subscribe((ringing: String) => {
+        console.log("incoming call: " + ringing);
+        this._userService.search(null).subscribe((result) => {
+          const u : User = result.filter(us => {
+            return us.pass == ringing;
+          });
+          this.userCalling = u[0];
+          this.incomingCall = true;
+        });
+      });
       
   }
 
@@ -61,14 +75,14 @@ export class ChatUserComponent implements OnInit {
 
   sendMessage()
   {
-    //this._sipService.sendMessage(this.user.sip, this.messageInput.nativeElement.value);
+    this._sipService.sendMessage(this.user.sip, this.messageInput.nativeElement.value);
     var message = this.messageInput.nativeElement.value;
     if (message != null && message != "")
     {
       this.createMessage(message, 'msg-self');
       message = "";
+      this.messageInput.nativeElement.value = "";
     }
-    
   }
 
   onEnter(event)

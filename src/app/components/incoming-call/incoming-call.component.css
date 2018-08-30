@@ -1,0 +1,14 @@
+.call-icon {
+    width: 40px;
+    cursor: pointer;
+}
+
+.footer {
+    text-align: center !important;
+}
+
+.caller {
+    border-radius: 200px;
+    width: 100px;
+    text-align: center;
+}
