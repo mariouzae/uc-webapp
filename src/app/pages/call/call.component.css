@@ -79,6 +79,20 @@
     text-align: center;
 }
 
+.videoCall {
+    position: relative;
+    overflow: visible; 
+}
+
+.hide {
+    display: none !important;
+}
+
+.end-groupVideo {
+    margin-top: 35px;
+    text-align: center;
+}
+
 @media (max-width: 768px) {
     .end-group {
         margin-top: 65px;

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { map, filter } from 'rxjs/operators';
@@ -17,20 +17,23 @@ export class CallComponent implements OnInit {
 
   @ViewChild('remoteVideo') remoteVideo: ElementRef;
   @ViewChild('localVideo') localVideo: ElementRef;
+  @ViewChild('endGroup') endGroup: ElementRef;
   user: { name: string };
   userToCall: object;
   imgUrl: string = "assets/microphone.png";
-  videoUrl: string = "assets/video.png";
+  videoUrl: string = "assets/cut-video.png";
   userPhoto: string;
   sipNumber: string
   userName: string;
-  durationTime: string = "00:00:00"
+  durationTime: string;
   userAgent: any;
   callStatus: string;
   receivedCall: Boolean;
+  showPhoto: Boolean = true;
 
   constructor(private router: ActivatedRoute, private route: Router,
-    private _userService: UserService, private _sipService: SipService) { }
+    private _userService: UserService, private _sipService: SipService,
+    private renderer: Renderer2) { }
 
   ngOnInit() {
     var user = {
@@ -57,6 +60,7 @@ export class CallComponent implements OnInit {
 
           if (this.receivedCall) {
             this.getSessionDurationTime();
+            this._sipService.acceptSession(this.remoteVideo, this.localVideo);
             this._sipService.terminated.subscribe(term => {
               this.goBack();
             })
@@ -124,7 +128,23 @@ export class CallComponent implements OnInit {
   }
 
   video() {
-    this.videoUrl == "assets/video.png" ? this.videoUrl = "assets/cut-video.png" : this.videoUrl = "assets/video.png";
+    if (this.videoUrl == "assets/video.png")
+    {
+      this.videoUrl = "assets/cut-video.png";
+      this.showPhoto = true;
+      this.renderer.addClass(this.remoteVideo.nativeElement, "hide");
+      this.renderer.addClass(this.endGroup.nativeElement, "end-group");
+      this.renderer.removeClass(this.endGroup.nativeElement, "end-groupVideo");
+      this.renderer.removeClass('video', "videoCall");
+    } else {
+      this.videoUrl = "assets/video.png";
+      this.showPhoto = false;
+      this.renderer.removeClass(this.remoteVideo.nativeElement, "hide");
+      this.renderer.removeClass(this.endGroup.nativeElement, "end-group");
+      this.renderer.addClass(this.endGroup.nativeElement, "end-groupVideo");
+      this.renderer.addClass('video', "videoCall");
+      
+    }
   }
 
   getSessionDurationTime() {

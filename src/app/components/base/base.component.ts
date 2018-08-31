@@ -92,7 +92,7 @@ export class BaseComponent implements OnInit {
 
   acceptCall()
   {
-    this._sipService.acceptSession(this.remoteVideo, this.localVideo);
+    //this._sipService.acceptSession(this.remoteVideo, this.localVideo);
     this.route.navigate(['/call/'+this.user.name], { queryParams: { received: true } });
   }
 

@@ -1,12 +1,14 @@
 <div class="base">
-  <video #remoteVideo autoplay style="display: none"></video>
   <div class="row">
     <div class="col-md-12 col-xs-12 col-sm-12 title">
       <span class="glyphicon glyphicon-chevron-left" (click)="goBack()"></span>
       <p class="sip-number">{{sipNumber}}</p>
     </div>
   </div>
-  <div class="row photo">
+  <div class="row">
+      <video class="hide" width="331" height="240" #remoteVideo autoplay></video>
+  </div>
+  <div class="row photo" *ngIf="showPhoto">
     <div class="col-md-12 col-xs-12 col-sm-12">
       <img src="{{userPhoto}}">
     </div>
@@ -21,7 +23,7 @@
       <span>{{ durationTime }}</span>
     </div>
   </div>
-  <div class="row end-group">
+  <div #endGroup class="row end-group">
     <div class="div text-center">
       <div class="col-xs-4 col-sm-4 col-md-4 video">
         <img src={{videoUrl}} (click)="video()">
