@@ -30,6 +30,9 @@ export class CallComponent implements OnInit {
   callStatus: string;
   receivedCall: Boolean;
   showPhoto: Boolean = true;
+  audioTrack;
+  remoteVideoTrack;
+  localVideoTrack;
 
   constructor(private router: ActivatedRoute, private route: Router,
     private _userService: UserService, private _sipService: SipService,
@@ -61,8 +64,11 @@ export class CallComponent implements OnInit {
           if (this.receivedCall) {
             this.getSessionDurationTime();
             this._sipService.acceptSession(this.remoteVideo, this.localVideo);
+            this.callStatus = "on call";
             this._sipService.terminated.subscribe(term => {
-              this.goBack();
+              setTimeout(() => {
+                this.route.navigate(['/phone']);
+              }, 2000);
             })
           } else {
             this.call(this.userToCall[0]);
@@ -78,18 +84,26 @@ export class CallComponent implements OnInit {
     session.on('trackAdded', () => {
       var pc = session.sessionDescriptionHandler.peerConnection;
       this.getSessionDurationTime();
-      // Gets remote tracks
+      // Get remote tracks
       var remoteStream = new MediaStream();
-      pc.getReceivers().forEach(function (receiver) {
+      pc.getReceivers().forEach((receiver) => {
         remoteStream.addTrack(receiver.track);
+        if(receiver.track.kind == "video"){
+          this.remoteVideoTrack = receiver.track;
+        }
       });
       this.remoteVideo.nativeElement.srcObject = remoteStream;
-      // // Gets local tracks
-      // var localStream = new MediaStream();
-      // pc.getSenders().forEach(function(sender) {
-      //   localStream.addTrack(sender.track);
-      // });
-      // this.localVideo.nativeElement.srcObject = localStream;
+      // Get local tracks
+      var localStream = new MediaStream();
+      pc.getSenders().forEach((sender) => {
+        if(sender.track.kind == "audio") {
+          this.audioTrack = sender.track;
+        } else {
+          this.localVideoTrack = sender.track;
+        }
+        localStream.addTrack(sender.track);
+      });
+      //this.localVideo.nativeElement.srcObject = localStream;
       // Set call status
       this.callStatus = "on call";
     });
@@ -108,7 +122,7 @@ export class CallComponent implements OnInit {
   goBack() {
     if (!this.receivedCall) {
       this._sipService.terminate();
-    } else {
+    }  else {
       this._sipService.terminatePeer();
     }
     setTimeout(() => {
@@ -121,7 +135,9 @@ export class CallComponent implements OnInit {
     if (this.imgUrl == "assets/microphone.png") {
       this.imgUrl = "assets/cut-microphone.png";
       this.remoteVideo.nativeElement.muted = true;
+      this.audioTrack.enabled = false;
     } else {
+      this.audioTrack.enabled = true;
       this.imgUrl = "assets/microphone.png";
       this.remoteVideo.nativeElement.muted = false;
     }

@@ -93,6 +93,10 @@
     text-align: center;
 }
 
+video {
+    margin-top: 5px;
+}
+
 @media (max-width: 768px) {
     .end-group {
         margin-top: 65px;

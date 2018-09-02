@@ -44,7 +44,6 @@ export class SipService {
     });
 
     this.userAgent.on('invite', (session) => {
-      console.log("Receive a call, ringing...");
       this.callSession = session;
       this.ringing.emit(session.remoteIdentity.uri.user);
     });
@@ -57,20 +56,19 @@ export class SipService {
   invite(user: User, element: ElementRef): any {
     this.session = this.userAgent.invite(user.sip, {
       sessionDescriptionHandlerOptions: {
-          constraints: {
-              audio: true,
-              video: true
-          }
+          constraints: { width: 320, height: 240, facingMode: "user", echoCancellation: true }
       }});
       return this.session;
   }
 
   terminate() {
+    console.log("terminate caller");
     this.session.terminate();
   }
 
   terminatePeer()
   {
+    console.log("terminate peer");
     this.callSession.terminate();
   }
 
